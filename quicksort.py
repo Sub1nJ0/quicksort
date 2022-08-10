@@ -11,12 +11,14 @@ def csvtolist():
 
     return n_list
 
-def writeFile(quick):
-    f = open('Result.csv', 'w', newline='')
+def writeFile(res, fname):
+    f = open(fname, 'w', newline='')
     wr = csv.writer(f)
-    for i in quick:
+
+    for i in res:
         list = [i]
         wr.writerow(list)
+
     f.close()
 
 
@@ -36,43 +38,39 @@ def quicksort(n_list):
             mid.append(num)
     return quicksort(left) + mid + quicksort(right)
 
+
+def time_mem():
+    proc_state = psutil.Process()
+    p_mem = proc_state.memory_info().rss / 2 ** 20  # bytes to mb
+    t = time.time()
+
+    return t, p_mem
+
 if __name__ == "__main__":
     n_list = csvtolist()
 
-    start_p1 = psutil.Process()
-    start_rss1 = start_p1.memory_info().rss / 2 ** 20  # bytes to mb
-    start_time1 = time.time()
-
-    quick = quicksort(n_list)
-
-    end_time1 = time.time()
-    end_p1 = psutil.Process()
-    end_rss1 = end_p1.memory_info().rss / 2 ** 20  # bytes to mb
+    # quicksort
+    start_time1, before_proc1 = time_mem()
+    quick_res = quicksort(n_list)
+    writeFile(quick_res, 'quick_res.csv')
+    end_time1, after_proc1 = time_mem()
 
     t1 = end_time1 - start_time1
-    m1 = end_rss1 - start_rss1
+    m1 = after_proc1 - before_proc1
 
-    print(quick)
-    print(len(quick))
-    print(f"실행 시간: {t1}")
-    print(f"사용 메모리: {m1}MB")
-    # print(start_p.memory_info())
-    # print(end_p.memory_info())
+    # print(quick_res)
+    # print(len(quick_res))
+    print(f"quicksort 실행 시간: {t1}")
+    print(f"quicksort 사용 메모리: {m1}MB")
 
-    writeFile(quick)
-
-    start_p2 = psutil.Process()
-    start_rss2 = start_p2.memory_info().rss / 2 ** 20  # bytes to mb
-    start_time2 = time.time()
-
-    result = sorted(n_list)
-
-    end_time2 = time.time()
-    end_p2 = psutil.Process()
-    end_rss2 = end_p2.memory_info().rss / 2 ** 20  # bytes to mb
+    # sorted()
+    start_time2, before_proc2 = time_mem()
+    sorted_res = sorted(n_list)
+    writeFile(sorted_res, 'sorted_res.csv')
+    end_time2, after_proc2 = time_mem()
 
     t2 = end_time2 - start_time2
-    m2 = end_rss2 - start_rss2
+    m2 = after_proc2 - before_proc2
 
     print(f"내장 sorted 실행 시간: {t2}")
     print(f"내장 sorted 사용 메모리: {m2}MB")
