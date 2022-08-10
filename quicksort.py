@@ -36,28 +36,43 @@ def quicksort(n_list):
             mid.append(num)
     return quicksort(left) + mid + quicksort(right)
 
-
 if __name__ == "__main__":
     n_list = csvtolist()
 
-    start_p = psutil.Process()
-    start_rss = start_p.memory_info().rss / 2 ** 20  # bytes to mb
-    start_time = time.time()
+    start_p1 = psutil.Process()
+    start_rss1 = start_p1.memory_info().rss / 2 ** 20  # bytes to mb
+    start_time1 = time.time()
 
     quick = quicksort(n_list)
 
-    end_time = time.time()
-    end_p = psutil.Process()
-    end_rss = end_p.memory_info().rss / 2 ** 20  # bytes to mb
+    end_time1 = time.time()
+    end_p1 = psutil.Process()
+    end_rss1 = end_p1.memory_info().rss / 2 ** 20  # bytes to mb
 
-    t = end_time - start_time
-    m = end_rss - start_rss
+    t1 = end_time1 - start_time1
+    m1 = end_rss1 - start_rss1
 
     print(quick)
     print(len(quick))
-    print(f"실행 시간: {t}")
-    print(f"사용 메모리: {m}MB")
-    #print(start_p.memory_info())
-    #print(end_p.memory_info())
+    print(f"실행 시간: {t1}")
+    print(f"사용 메모리: {m1}MB")
+    # print(start_p.memory_info())
+    # print(end_p.memory_info())
 
     writeFile(quick)
+
+    start_p2 = psutil.Process()
+    start_rss2 = start_p2.memory_info().rss / 2 ** 20  # bytes to mb
+    start_time2 = time.time()
+
+    result = sorted(n_list)
+
+    end_time2 = time.time()
+    end_p2 = psutil.Process()
+    end_rss2 = end_p2.memory_info().rss / 2 ** 20  # bytes to mb
+
+    t2 = end_time2 - start_time2
+    m2 = end_rss2 - start_rss2
+
+    print(f"내장 sorted 실행 시간: {t2}")
+    print(f"내장 sorted 사용 메모리: {m2}MB")
