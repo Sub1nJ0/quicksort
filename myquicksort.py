@@ -1,4 +1,3 @@
-import random
 from tools import time_mem, writecsvFile, csvtolist
 
 # 3번
