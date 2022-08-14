@@ -1,11 +1,7 @@
 import random
 import csv
 
-"""rn_list = np.random.randint(low=-500000, high=500000, size=1000000)
-rn_list = np.transpose(rn_list)
-rn_list = rn_list.tolist()
-print(rn_list)"""
-
+# 1번
 # 랜덤 정렬
 def makeRN():
     f = open('RN.csv', 'w', newline='')
@@ -17,6 +13,7 @@ def makeRN():
         wr.writerow(list)
     f.close()
 
+
 # 순방향 정렬
 def makeON():
     f = open('ON.csv', 'w', newline='')
@@ -26,6 +23,7 @@ def makeON():
         print(list)
         wr.writerow(list)
     f.close()
+
 
 # 역방향 정렬
 def makeUN():
@@ -38,6 +36,6 @@ def makeUN():
     f.close()
 
 if __name__ == "__main__":
-    makeUN()
-    makeON()
+    #makeUN()
+    #makeON()
     makeRN()
